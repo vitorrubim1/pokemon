@@ -32,7 +32,7 @@ export const App: React.FC = () => {
             marginTop="6"
             onClick={() => history.push('pokemon')}
           >
-            Pokemon
+            Visualizar
           </Button>
         </Flex>
       </Flex>
