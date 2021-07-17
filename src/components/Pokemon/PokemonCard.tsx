@@ -1,9 +1,11 @@
+import { useCallback, useEffect, useState } from 'react';
 import { Flex, Box, Image, Text, Icon } from '@chakra-ui/react';
 import { IoEllipsisHorizontal } from 'react-icons/io5';
 
-import { useCallback, useEffect, useState } from 'react';
 import { usePokemon } from '../../hooks/pokemon';
+import { useModal } from '../../hooks/modal';
 
+import ModalPokemonDetails from './ModalPokemonDetails';
 import Button from '../Button';
 import Loading from '../Loading';
 
@@ -13,6 +15,7 @@ interface PokemonCardProps {
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ namePokemon, url }) => {
+  const { handleOpenModal } = useModal();
   const { loading } = usePokemon();
 
   const [pokemonID, setPokemonID] = useState(0);
@@ -60,6 +63,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ namePokemon, url }) => {
             </Text>
 
             <Button
+              onClick={() => handleOpenModal(Number(pokemonID))}
               padding="3"
               size="sm"
               colorScheme="blue"
@@ -70,6 +74,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ namePokemon, url }) => {
               Ver mais
             </Button>
           </Flex>
+          <ModalPokemonDetails />
         </Box>
       )}
     </Box>
