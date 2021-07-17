@@ -16,6 +16,7 @@ import PokemonLogo from '../../assets/pokemonLogo.png';
 
 import SearchInput from '../../components/SearchInput';
 import PokemonCard from '../../components/Pokemon/PokemonCard';
+import Pagination from '../../components/Pagination';
 import AlertError from '../../components/AlertError';
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
@@ -93,6 +94,10 @@ const Pokemon: React.FC = () => {
         height="83vh"
         width="100%"
       >
+        <Box margin="0 auto 30px auto">
+          <Pagination />
+        </Box>
+
         <SimpleGrid gap={['3', '6']} minChildWidth="320px" paddingBottom="10">
           {wantedPokemon && (
             <PokemonCard
