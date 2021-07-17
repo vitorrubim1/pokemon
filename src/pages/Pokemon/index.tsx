@@ -1,3 +1,4 @@
+import { useEffect, useCallback, useState } from 'react';
 import {
   Flex,
   Box,
@@ -9,6 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
+import { usePokemon } from '../../hooks/pokemon';
+
 import PokemonLogo from '../../assets/pokemonLogo.png';
 
 import SearchInput from '../../components/SearchInput';
@@ -18,7 +21,25 @@ import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
 
 const Pokemon: React.FC = () => {
-  const pokemons = ['teste', 'teste', 'teste', 'teste', 'teste'];
+  const { handleLoadingPokemons, pokemons, wantedPokemon, error } =
+    usePokemon();
+
+  useEffect(() => {
+    handleLoadingPokemons();
+  }, [handleLoadingPokemons]);
+
+  const { handleSearchPokemon } = usePokemon();
+
+  const [researchedPokemon, setResearchedPokemon] = useState('');
+
+  const handleSubmit = useCallback(
+    event => {
+      event.preventDefault();
+
+      handleSearchPokemon(researchedPokemon);
+    },
+    [researchedPokemon, handleSearchPokemon],
+  );
 
   return (
     <Flex
@@ -29,12 +50,28 @@ const Pokemon: React.FC = () => {
       maxWidth="1480px"
     >
       <BackButton to="/" />
-      <Box width="300px" marginX="auto" marginBottom="5" cursor="pointer">
+      <Box
+        width="300px"
+        marginX="auto"
+        marginBottom="5"
+        cursor="pointer"
+        onClick={handleLoadingPokemons}
+      >
         <Image src={PokemonLogo} alt="Logo do pokemon" />
       </Box>
 
-      <InputGroup as="form" size="lg" marginX="auto" maxWidth="500px">
-        <SearchInput placeholder="Procurar por um pokemon" />
+      <InputGroup
+        as="form"
+        size="lg"
+        marginX="auto"
+        maxWidth="500px"
+        onSubmit={handleSubmit}
+      >
+        <SearchInput
+          value={researchedPokemon}
+          onChange={event => setResearchedPokemon(event.target.value)}
+          placeholder="Procurar por um pokemon"
+        />
 
         <InputRightElement>
           <Button size="md" height="1.75rem" marginRight="4" type="submit">
@@ -57,13 +94,27 @@ const Pokemon: React.FC = () => {
         width="100%"
       >
         <SimpleGrid gap={['3', '6']} minChildWidth="320px" paddingBottom="10">
-          {false && (
+          {wantedPokemon && (
+            <PokemonCard
+              key={wantedPokemon.name}
+              url={wantedPokemon.species.url}
+              namePokemon={wantedPokemon.name}
+            />
+          )}
+
+          {error && (
             <AlertError label="Não conseguimos encontrar este pokemon, tente novamente." />
           )}
 
-          {pokemons.map(pokemon => (
-            <PokemonCard key={pokemon} url={pokemon} namePokemon={pokemon} />
-          ))}
+          {!error &&
+            !wantedPokemon &&
+            pokemons.map(pokemon => (
+              <PokemonCard
+                key={pokemon.name}
+                url={pokemon.url}
+                namePokemon={pokemon.name}
+              />
+            ))}
         </SimpleGrid>
       </Flex>
     </Flex>
