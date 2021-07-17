@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Pokemon from '../Pokemon';
+import Pokemon from '../pages/Pokemon';
 import App from '../App';
 
 const Routes: React.FC = () => {
