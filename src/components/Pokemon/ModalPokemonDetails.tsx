@@ -14,11 +14,12 @@ import {
 
 import { useModal } from '../../hooks/modal';
 import { usePokemon } from '../../hooks/pokemon';
+import Loading from '../Loading';
 
 import PokemonStatistic from './PokemonStatistic';
 
 const ModalPokemonDetails: React.FC = () => {
-  const { isOpen, handleCloseModal } = useModal();
+  const { isOpen, handleCloseModal, loading } = useModal();
   const { pokemonDetail } = usePokemon();
 
   return (
@@ -30,45 +31,53 @@ const ModalPokemonDetails: React.FC = () => {
       colorScheme="gray"
       size="xl"
     >
-      <ModalOverlay />
-      <ModalContent bgColor="gray.700">
-        <ModalHeader
-          display="flex"
-          flexDirection="column"
-          textTransform="capitalize"
-        >
-          {pokemonDetail?.name}
-          <Box>
-            {pokemonDetail?.abilities.map(ability => (
-              <Badge colorScheme="blue" marginRight="3">
-                {ability.ability.name}
-              </Badge>
-            ))}
-          </Box>
-        </ModalHeader>
-        <ModalCloseButton />
+      {pokemonDetail && (
+        <>
+          <ModalOverlay />
+          <ModalContent bgColor="gray.700">
+            <ModalHeader
+              display="flex"
+              flexDirection="column"
+              textTransform="capitalize"
+            >
+              {pokemonDetail?.name}
+              <Box>
+                {pokemonDetail?.abilities.map(ability => (
+                  <Badge colorScheme="blue" marginRight="3">
+                    {ability.ability.name}
+                  </Badge>
+                ))}
+              </Box>
+            </ModalHeader>
+            <ModalCloseButton />
 
-        <ModalBody>
-          <Flex align="center" justify="space-between">
-            <Avatar
-              size="2xl"
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonDetail?.id}.svg`}
-              name={pokemonDetail?.name}
-            />
+            <ModalBody>
+              {loading ? (
+                <Loading />
+              ) : (
+                <Flex align="center" justify="space-between">
+                  <Avatar
+                    size="2xl"
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonDetail?.id}.svg`}
+                    name={pokemonDetail?.name}
+                  />
 
-            <Flex flexDirection="column" width="90%">
-              {pokemonDetail?.stats.map(statistic => (
-                <PokemonStatistic
-                  value={statistic.base_stat}
-                  statistic={statistic.stat.name}
-                />
-              ))}
-            </Flex>
-          </Flex>
-        </ModalBody>
+                  <Flex flexDirection="column" width="90%">
+                    {pokemonDetail?.stats.map(statistic => (
+                      <PokemonStatistic
+                        value={statistic.base_stat}
+                        statistic={statistic.stat.name}
+                      />
+                    ))}
+                  </Flex>
+                </Flex>
+              )}
+            </ModalBody>
 
-        <ModalFooter />
-      </ModalContent>
+            <ModalFooter />
+          </ModalContent>
+        </>
+      )}
     </Modal>
   );
 };

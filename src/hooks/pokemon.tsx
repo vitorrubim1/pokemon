@@ -120,7 +120,6 @@ const PokemonProvider: React.FC = ({ children }) => {
       const response = await api.get(
         `https://pokeapi.co/api/v2/pokemon/${id}/`,
       );
-
       setPokemonDetails(response.data);
     } catch (err) {
       setError(true);

@@ -17,14 +17,14 @@ const GoBack: React.FC<GoBackProps> = ({ to }) => {
   return (
     <Flex
       align="center"
-      width="100px"
+      width="8.5rem"
       cursor="pointer"
       marginTop="5"
       onClick={handleGoBack}
     >
       <Icon as={HiOutlineArrowNarrowLeft} size={25} color="blue.500" />
       <Text fontWeight="bold" color="blue.500" fontSize="larger" marginLeft="3">
-        Voltar
+        Come back
       </Text>
     </Flex>
   );

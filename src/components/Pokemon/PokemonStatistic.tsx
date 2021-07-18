@@ -23,9 +23,9 @@ const PokemonStatistic: React.FC<PokemonStatisticProps> = ({
           fontSize="md"
           textTransform="capitalize"
         >
-          {statistic}
+          {statistic.replace('-', ' ')}
         </Text>
-        <Progress colorScheme="blue" size="sm" value={value} />
+        <Progress colorScheme="blue" size="sm" max={200} value={value} />
       </Stack>
     </Tooltip>
   );

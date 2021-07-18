@@ -12,12 +12,18 @@ const Pagination: React.FC = () => {
     <Flex
       justify={previousUrl ? 'space-between' : 'center'}
       align="center"
-      width="200px"
+      width="210px"
     >
       {pokemons && previousUrl && (
-        <Button onClick={handlePreviousPage}>Anterior</Button>
+        <Button onClick={handlePreviousPage} minWidth="100px">
+          Previous
+        </Button>
       )}
-      {nextUrl && <Button onClick={handleNextPage}>Próximo</Button>}
+      {nextUrl && (
+        <Button onClick={handleNextPage} minWidth="100px">
+          Next
+        </Button>
+      )}
     </Flex>
   );
 };

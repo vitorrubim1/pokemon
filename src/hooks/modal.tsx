@@ -4,6 +4,8 @@ import { usePokemon } from './pokemon';
 
 interface ModalContextData {
   isOpen: boolean;
+  loading: boolean;
+
   handleCloseModal(): void;
   handleOpenModal(pokemonID: number): void;
 }
@@ -14,12 +16,21 @@ const ModalProvider: React.FC = ({ children }) => {
   const { handlePokemonDetails } = usePokemon();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleOpenModal = useCallback(
     (pokemonID: number) => {
+      setLoading(true);
       setIsOpen(true);
-
       handlePokemonDetails(pokemonID);
+
+      setTimeout(
+        () => {
+          setLoading(false);
+        },
+        200,
+        [],
+      );
     },
     [handlePokemonDetails],
   );
@@ -33,6 +44,7 @@ const ModalProvider: React.FC = ({ children }) => {
       value={{
         // states
         isOpen,
+        loading,
 
         // functions
         handleCloseModal,

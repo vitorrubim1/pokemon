@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Flex, Box, Image, Text, Icon } from '@chakra-ui/react';
-import { IoEllipsisHorizontal } from 'react-icons/io5';
+import { GoInfo } from 'react-icons/go';
 
 import { usePokemon } from '../../hooks/pokemon';
 import { useModal } from '../../hooks/modal';
@@ -37,25 +37,29 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ namePokemon, url }) => {
       marginX={['', 'auto']}
       borderRadius="lg"
       transition="all 200ms"
-      _hover={{ transform: 'scale(1.1)', borderBottom: '3px solid #2B6CB0' }}
+      _hover={{
+        transform: 'scale(1.1)',
+        borderBottom: '3px solid #2B6CB0',
+        backgroundColor: 'gray.500',
+      }}
     >
       {loading ? (
         <Loading />
       ) : (
         <Box>
           <Image
-            boxSize="180px"
+            height="200px"
             margin="5px auto"
             src={image}
             objectFit="cover"
             alt={`image do pokemon ${namePokemon}`}
             loading="eager"
           />
-          <Flex padding="6" align="center" flexDirection="column">
+          <Flex paddingY="1" align="center" flexDirection="column">
             <Text
               fontWeight="bold"
               textTransform="capitalize"
-              color="gray.300"
+              color="gray.100"
               fontSize="lg"
               marginBottom="2"
             >
@@ -67,11 +71,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ namePokemon, url }) => {
               padding="3"
               size="sm"
               colorScheme="blue"
-              leftIcon={
-                <Icon as={IoEllipsisHorizontal} fontSize={['15', '20']} />
-              }
+              rightIcon={<Icon as={GoInfo} fontSize={['10', '15']} />}
             >
-              Ver mais
+              View more
             </Button>
           </Flex>
           <ModalPokemonDetails />

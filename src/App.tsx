@@ -17,7 +17,7 @@ export const App: React.FC = () => {
         flexDirection="column"
       >
         <Flex flexDirection="column" width="100%" textAlign="center">
-          <Text fontSize="xl">Teste frontend desenvolvido por</Text>
+          <Text fontSize="xl">Frontend test developed by</Text>
           <Text as="strong">
             <Link href="https://github.com/vitorrubim1" target="__blank">
               Vitor Rubim
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
             marginTop="6"
             onClick={() => history.push('pokemon')}
           >
-            Visualizar
+            Lets go
           </Button>
         </Flex>
       </Flex>

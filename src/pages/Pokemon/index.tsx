@@ -70,8 +70,10 @@ const Pokemon: React.FC = () => {
       >
         <SearchInput
           value={researchedPokemon}
-          onChange={event => setResearchedPokemon(event.target.value)}
-          placeholder="Procurar por um pokemon"
+          onChange={event =>
+            setResearchedPokemon(event.target.value.trim().toLocaleLowerCase())
+          }
+          placeholder="Search for a pokemon"
         />
 
         <InputRightElement>
